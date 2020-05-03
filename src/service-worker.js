@@ -1,0 +1,60 @@
+var doCache = true;
+
+// Имя кэша
+var CACHE_NAME = "my-pwa-cache-v2";
+
+// Очищает старый кэш
+self.addEventListener("activate", (event) => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then((keyList) =>
+      Promise.all(
+        keyList.map((key) => {
+          if (!cacheWhitelist.includes(key)) {
+            console.log("Deleting cache: " + key);
+            return caches.delete(key);
+          }
+        })
+      )
+    )
+  );
+});
+
+// 'install' вызывается, как только пользователь впервые открывает PWA
+self.addEventListener("install", function (event) {
+  alert("INSTALL")
+  if (doCache) {
+    event.waitUntil(
+      caches.open(CACHE_NAME).then(function (cache) {
+        alert("CACHE")
+        // Получаем данные из манифеста (они кэшируются)
+        fetch("/manifest.json")
+          .then((response) => {
+            response.json();
+          })
+          .then((assets) => {
+            console.log(assets)
+            // Открываем и кэшируем нужные страницы и файлы
+            const urlsToCache = [
+              "/",
+              "https://api-maps.yandex.ru/2.1/?apikey=421b54ab-e9a7-4082-aa15-599cc730a067&lang=ru_RU&load=package.full",
+            ];
+            cache.addAll(urlsToCache);
+            console.log("cached");
+          });
+      })
+    );
+  }
+});
+
+// Когда приложение запущено, сервис-воркер перехватывает запросы и отвечает на них данными из кэша, если они есть
+self.addEventListener("fetch", function (event) {
+  if (doCache) {
+    alert("REQUEST", event.request)
+    event.respondWith(
+      caches.match(event.request).then(function (response) {
+        return response || fetch(event.request);
+      })
+    );
+  }
+});

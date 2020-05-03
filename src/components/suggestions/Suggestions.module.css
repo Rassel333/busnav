@@ -1,0 +1,8 @@
+.noResults {
+    height: 100%;
+    background-color: #33354e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}

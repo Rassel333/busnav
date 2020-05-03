@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<!--<script src="https://api-maps.yandex.ru/2.1/?apikey=421b54ab-e9a7-4082-aa15-599cc730a067&lang=ru_RU"></script>-->
+<script src="https://api-maps.yandex.ru/2.1/?apikey=421b54ab-e9a7-4082-aa15-599cc730a067&lang=ru_RU&onload=onLoad&load=package.full"
+        type="text/javascript"></script>
+
+<input type="text" id="suggest"/>
+<script>
+    // const input = document.getElementById('suggest')
+    // console.log(Object.keys(ymaps))
+    // ymaps.suggest('москва').then(function (items) {
+    //   console.log(items);
+    // });
+    // input.addEventListener('input', event => {
+    //   console.log(event.target.value)
+    //
+    // })
+    // console.log(ymaps.SuggestView)
+  function onLoad (ymaps) {
+    ymaps.suggest('огинского 10', { results: 15 }).then(function (items) {
+      console.log(items);
+    });
+    var suggestView = new ymaps.SuggestView('suggest', {results: 5, offset: [20, 30], width: 500});
+    suggestView.events.add('select', item => {
+      console.log(item.originalEvent.item)
+    })
+  }
+</script>
+</body>
+</html>

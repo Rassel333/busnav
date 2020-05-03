@@ -1,0 +1,44 @@
+.searchPage {
+    height: 100%;
+}
+
+.searchWrapper {
+    background-color: #33354e;
+    width: calc(100% - 2.4rem);
+    padding: 1.2rem;
+}
+
+.fieldRow {
+    width: 100%;
+    margin-bottom: 0.6rem;
+}
+
+.searchInput {
+    border-color: red;
+    color: #ffffff;
+}
+
+.contentWrapper {
+    height: calc(100% - 174px);
+    padding: 20px 0 0;
+    background: #33354ef0;
+}
+
+.suggestionsWrapper {
+    height: 100%;
+    background-color: #33354e;
+}
+
+.pageContent {
+    height: 100%;
+    background-color: #33354e;
+    overflow: auto;
+}
+
+.infoMessage {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
