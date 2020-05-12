@@ -5,7 +5,7 @@
         {
           "station_name": "Вишневец",
           "route_name": "10 Вишневец - Санаторий Неман",
-          "route_type": "bus",
+          "route_type": "masstransit",
           "path_to_next": [
             [
               23.864514,
@@ -137,13 +137,13 @@
             53.640016873
           ],
           "travel_time": 2,
-          "departure_time": 1588359180000,
-          "arrival_time": 1588359180000
+          "departure_time": 1589246261955,
+          "arrival_time": 1589246261955
         },
         {
           "station_name": "Поликлиника №7",
           "route_name": "16 Вишневец - Санаторий Неман",
-          "route_type": "bus",
+          "route_type": "masstransit",
           "path_to_next": [
             [
               23.859941,
@@ -265,7 +265,7 @@
         {
           "station_name": "Улица Кабяка",
           "route_name": "16 Вишневец - Санаторий Неман",
-          "route_type": "bus",
+          "route_type": "masstransit",
           "path_to_next": [
             [
               23.848862,
@@ -338,7 +338,7 @@
         {
           "station_name": "Вишневец",
           "route_name": "10 Вишневец - Санаторий Неман",
-          "route_type": "bus",
+          "route_type": "masstransit",
           "path_to_next": [
             [
               23.864514,
@@ -476,7 +476,7 @@
         {
           "station_name": "Поликлиника №7",
           "route_name": "10 Вишневец - Санаторий Неман",
-          "route_type": "bus",
+          "route_type": "masstransit",
           "path_to_next": [
             [
               23.859941,
@@ -598,7 +598,7 @@
         {
           "station_name": "Улица Кабяка",
           "route_name": "10 Вишневец - Санаторий Неман",
-          "route_type": "bus",
+          "route_type": "masstransit",
           "path_to_next": [
             [
               23.848862,

@@ -16,10 +16,15 @@ export const getFromCoordsByAddressPending = () => ({
   type: GET_FROM_COORDS_BY_ADDRESS_PENDING,
 });
 
-export const getFromCoordsByAddressSuccess = (point, precision = "exact") => ({
+export const getFromCoordsByAddressSuccess = (
+  point,
+  precision = "exact",
+  address
+) => ({
   type: GET_FROM_COORDS_BY_ADDRESS_SUCCESS,
   point,
   precision,
+  address,
 });
 
 export const getFromCoordsByAddressFail = (error) => ({
@@ -31,10 +36,15 @@ export const getToCoordsByAddressPending = () => ({
   type: GET_TO_COORDS_BY_ADDRESS_PENDING,
 });
 
-export const getToCoordsByAddressSuccess = (point, precision) => ({
+export const getToCoordsByAddressSuccess = (
+  point,
+  precision = "exact",
+  address
+) => ({
   type: GET_TO_COORDS_BY_ADDRESS_SUCCESS,
   point,
   precision,
+  address,
 });
 
 export const getToCoordsByAddressFail = (error) => ({
@@ -42,7 +52,7 @@ export const getToCoordsByAddressFail = (error) => ({
   error,
 });
 
-export const currentPositionUpdated = (point) => ({
+export const updateCurrentPosition = (point) => ({
   type: CURRENT_POSITION_UPDATED,
   point,
 });

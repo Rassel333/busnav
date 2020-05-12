@@ -5,6 +5,7 @@ import {
   GET_TO_COORDS_BY_ADDRESS_PENDING,
   GET_TO_COORDS_BY_ADDRESS_SUCCESS,
   GET_TO_COORDS_BY_ADDRESS_FAIL,
+  CURRENT_POSITION_UPDATED,
 } from "../actions/coordinates";
 
 export const initialState = {
@@ -16,6 +17,7 @@ export const initialState = {
     point: undefined,
     loading: false,
   },
+  currentPosition: undefined,
 };
 
 export default function (state = initialState, action) {
@@ -34,6 +36,7 @@ export default function (state = initialState, action) {
         from: {
           point: action.point,
           precision: action.precision,
+          address: action.address,
           loading: false,
         },
       };
@@ -59,6 +62,7 @@ export default function (state = initialState, action) {
         to: {
           point: action.point,
           precision: action.precision,
+          address: action.address,
           loading: false,
         },
       };
@@ -69,6 +73,11 @@ export default function (state = initialState, action) {
           ...initialState.to,
           error: action.error,
         },
+      };
+    case CURRENT_POSITION_UPDATED:
+      return {
+        ...state,
+        currentPosition: action.point,
       };
     default:
       return state;

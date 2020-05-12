@@ -16,7 +16,11 @@ import {
 } from "../../state/commands/coordinates";
 import { getSuggestions } from "../../state/commands/suggestions";
 import { Progress } from "../../components/progress";
-import { getRoutes, selectRoute } from "../../state/commands/routes";
+import {
+  getRoutes,
+  resetRoutes,
+  selectRoute,
+} from "../../state/commands/routes";
 
 export class SearchPage extends React.PureComponent {
   state = {
@@ -28,21 +32,36 @@ export class SearchPage extends React.PureComponent {
     selectedToValue: undefined,
   };
 
+  componentDidMount() {
+    const { fromAddress, toAddress, routes } = this.props;
+    if (
+      fromAddress &&
+      toAddress &&
+      (routes.direct_routes.length || routes.transfer_routes.length)
+    ) {
+      this.setState({
+        fromValue: fromAddress,
+        toValue: toAddress,
+      });
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const {
-      fromValue,
-      toValue,
-      selectedFromValue,
-      selectedToValue,
-      fromValueChanging,
-      toValueChanging,
-    } = this.state;
-    const {
-      fromPoint,
-      toPoint,
-      fromPointPrecision,
-      toPointPrecision,
-    } = this.props;
+      state: {
+        fromValue,
+        toValue,
+        selectedFromValue,
+        selectedToValue,
+        fromValueChanging,
+        toValueChanging,
+      },
+      props: { fromPoint, toPoint, fromPointPrecision, toPointPrecision },
+    } = this;
+    const isFromPointPrecisionCorrect =
+      fromPointPrecision === "exact" || fromPointPrecision === "other";
+    const isToPointPrecisionCorrect =
+      toPointPrecision === "exact" || toPointPrecision === "other";
     if (fromValue && fromValue !== prevState.fromValue) {
       this.props.getSuggestions(fromValue);
     }
@@ -60,7 +79,7 @@ export class SearchPage extends React.PureComponent {
     }
     if (
       fromValueChanging &&
-      fromPointPrecision === "exact" &&
+      isFromPointPrecisionCorrect &&
       fromPointPrecision !== prevProps.fromPointPrecision
     ) {
       this.setState({
@@ -69,7 +88,7 @@ export class SearchPage extends React.PureComponent {
     }
     if (
       toValueChanging &&
-      toPointPrecision === "exact" &&
+      isToPointPrecisionCorrect &&
       toPointPrecision !== prevProps.toPointPrecision
     ) {
       this.setState({
@@ -79,12 +98,19 @@ export class SearchPage extends React.PureComponent {
     if (
       fromPoint &&
       toPoint &&
-      toPointPrecision === "exact" &&
-      fromPointPrecision === "exact" &&
+      isFromPointPrecisionCorrect &&
+      isToPointPrecisionCorrect &&
       (!isEqual(fromPoint, prevProps.fromPoint) ||
         !isEqual(toPoint, prevProps.toPoint))
     ) {
       this.props.getRoutes();
+    }
+
+    if (
+      (!fromValue && prevState.fromValue) ||
+      (!toValue && prevState.toValue)
+    ) {
+      this.props.resetRoutes();
     }
   }
 
@@ -249,7 +275,13 @@ SearchPage.propTypes = {
   getSuggestions: PropTypes.func,
   getRoutes: PropTypes.func,
   fromPoint: PropTypes.array,
+  fromAddress: PropTypes.string,
   toPoint: PropTypes.array,
+  toAddress: PropTypes.string,
+  routes: PropTypes.object,
+  selectRoute: PropTypes.func,
+  getCurrentPosition: PropTypes.func,
+  resetRoutes: PropTypes.func,
 };
 
 export default connect(
@@ -257,8 +289,10 @@ export default connect(
     suggestions: state.suggestions.suggestions,
     fromPointPrecision: state.coordinates.from.precision,
     fromPoint: state.coordinates.from.point,
+    fromAddress: state.coordinates.from.address,
     toPoint: state.coordinates.to.point,
     toPointPrecision: state.coordinates.to.precision,
+    toAddress: state.coordinates.to.address,
     loading:
       state.suggestions.loading ||
       state.coordinates.from.loading ||
@@ -273,5 +307,6 @@ export default connect(
     getCurrentPosition: getCurrentPosition(dispatch),
     getRoutes: getRoutes(dispatch),
     selectRoute: selectRoute(dispatch),
+    resetRoutes: resetRoutes(dispatch),
   })
 )(withRouter(SearchPage));

@@ -2,7 +2,7 @@ import {
   GET_ROUTES_PENDING,
   GET_ROUTES_SUCCESS,
   GET_ROUTES_FAIL,
-  SELECT_ROUTE,
+  SELECT_ROUTE, RESET_ROUTES,
 } from "../actions/routes";
 
 export const initialState = {
@@ -36,6 +36,8 @@ export default function (state = initialState, action) {
         ...state,
         selectedRoute: action.route,
       };
+    case RESET_ROUTES:
+      return initialState
     default:
       return state;
   }

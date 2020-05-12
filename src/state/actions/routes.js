@@ -4,6 +4,8 @@ export const GET_ROUTES_FAIL = "GET_ROUTES_FAIL";
 
 export const SELECT_ROUTE = "SELECT_ROUTE";
 
+export const RESET_ROUTES = "RESET_ROUTES";
+
 export const getRoutesPending = () => ({
   type: GET_ROUTES_PENDING,
 });
@@ -21,3 +23,8 @@ export const setSelectedRoute = (route) => ({
   type: SELECT_ROUTE,
   route,
 });
+
+export const clearRoutes = () => ({
+  type: RESET_ROUTES
+})
+
