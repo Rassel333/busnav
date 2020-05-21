@@ -7,20 +7,17 @@ import {
   watchCurrentPosition,
 } from "../../state/commands/coordinates";
 import moment from "moment";
+import { DetailedRoute } from "../../components/detailedRoute";
+import Drawer from "@material-ui/core/Drawer";
+import Button from "@material-ui/core/Button";
+import { Clear } from "@material-ui/icons";
+import { withStyles } from "@material-ui/core";
 
-const startPoint = {
-  x: 53.6405,
-  y: 23.8648,
-};
-
-const coordsChange = (pm, map) => {
-  setInterval(() => {
-    startPoint.x = startPoint.x + 0.00001;
-    // console.log(pm);
-    pm.geometry.setCoordinates([startPoint.x, startPoint.y]);
-    map.geoObjects.add(pm);
-  }, 100);
-};
+const StyledDrawer = withStyles({
+  paper: {
+    backgroundColor: "#33354ef0",
+  },
+})(Drawer);
 
 class MapPage extends React.PureComponent {
   constructor(props) {
@@ -34,6 +31,7 @@ class MapPage extends React.PureComponent {
       transferStationRouteMessage: "",
       departureTime: undefined,
       timeToDeparture: undefined,
+      routeDetailsInfoOpened: false,
     };
   }
   componentDidMount() {
@@ -304,19 +302,40 @@ class MapPage extends React.PureComponent {
     clearPositionWatch();
   }
 
+  toggleDetailedRouteInfo = (isOpened) => () => {
+    this.setState({
+      routeDetailsInfoOpened: isOpened,
+    });
+  };
+
   render() {
-    const { departureTime, timeToDeparture } = this.state;
+    const {
+      departureTime,
+      timeToDeparture,
+      routeDetailsInfoOpened,
+      transferStationRouteMessage,
+    } = this.state;
     const time = moment(departureTime).format("HH:mm");
     const timeLeft = moment.duration(timeToDeparture);
     const hoursLeft = timeLeft.get("hours");
     const minutesLeft = timeLeft.get("minutes");
     return (
       <div className={styles.mapPageWrapper}>
+        {this.props.route && (
+          <Button
+            variant="contained"
+            color="primary"
+            className={styles.showDetails}
+            onClick={this.toggleDetailedRouteInfo(true)}
+          >
+            Детали поездки
+          </Button>
+        )}
         <div id="map" style={{ height: "100%", width: "100%" }} />
-        {this.state.transferStationRouteMessage && (
+        {transferStationRouteMessage && (
           <div className={styles.transferInfo}>
             <div>
-              {this.state.transferStationRouteMessage} ({time})
+              {transferStationRouteMessage} ({time})
             </div>
             {!!timeToDeparture && (
               <div>
@@ -324,6 +343,21 @@ class MapPage extends React.PureComponent {
               </div>
             )}
           </div>
+        )}
+        {this.props.route && (
+          <StyledDrawer
+            anchor="right"
+            open={routeDetailsInfoOpened}
+            onClose={this.toggleDetailedRouteInfo(false)}
+          >
+            <div
+              className={styles.closeDrawer}
+              onClick={this.toggleDetailedRouteInfo(false)}
+            >
+              <Clear fontSize="20px" />
+            </div>
+            <DetailedRoute route={this.props.route} />
+          </StyledDrawer>
         )}
       </div>
     );

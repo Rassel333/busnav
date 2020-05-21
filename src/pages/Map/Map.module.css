@@ -19,3 +19,25 @@
     color: #fff;
     border-radius: 50px;
 }
+
+.showDetails {
+    background-color: #2b2f46 !important;
+    position: absolute !important;
+    z-index: 1;
+    top: 10px;
+    right: 10px;
+}
+
+.closeDrawer {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .transferInfo {
+        font-size: 10px;
+    }
+}

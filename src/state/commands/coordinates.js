@@ -37,9 +37,10 @@ export const getCoordsByAddress = async (address) => {
   try {
     const geoCodeResult = await window.ymaps.geocode(address, { json: true });
     const [geoObject = {}] = geoCodeResult.GeoObjectCollection.featureMember;
+    const point =
+      geoObject.GeoObject.Point && geoObject.GeoObject.Point.pos.split(" ");
     return {
-      point:
-        geoObject.GeoObject.Point && geoObject.GeoObject.Point.pos.split(" "),
+      point: [point[1], point[0]],
       precision:
         geoObject.GeoObject.metaDataProperty.GeocoderMetaData.precision,
     };

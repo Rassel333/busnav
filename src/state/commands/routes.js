@@ -5,7 +5,6 @@ import {
   setSelectedRoute,
   clearRoutes,
 } from "../actions/routes";
-import reverse from "lodash/reverse";
 
 export const getRoutes = (dispatch) => (fromPoint, toPoint) => {
   dispatch(getRoutesPending());
@@ -23,7 +22,6 @@ export const selectRoute = (dispatch) => (route) => {
     if (!routeName) {
       routeData.push({ stations: [] });
       routeName = point.route_name;
-      // transferPoint = true;
     }
     if (routeName !== point.route_name) {
       routeName = point.route_name;
@@ -39,7 +37,6 @@ export const selectRoute = (dispatch) => (route) => {
     });
     routeData[index].route_type = point.route_type;
   });
-  console.log(routeData)
   dispatch(setSelectedRoute(routeData));
 };
 

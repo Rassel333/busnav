@@ -17,7 +17,6 @@ const ProgressBar = withStyles({
 
 export const Progress = () => (
   <div className={styles.progressWrapper}>
-    {/*<ProgressBar />*/}
     <ProgressBar />
   </div>
 );

@@ -5,3 +5,9 @@
 .routesList {
     padding: 0;
 }
+
+.listContentWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

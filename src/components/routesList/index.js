@@ -41,7 +41,12 @@ export const RoutesList = ({ routes, onSelect }) => {
                 button
                 onClick={() => onSelect(route)}
               >
-                {getRouteTitle(route)}
+                <div className={styles.listContentWrapper}>
+                  <div>{getRouteTitle(route)}</div>
+                  <div className={styles.routeTime}>
+                    {route.travel_time} мин.
+                  </div>
+                </div>
               </ListItem>
             ))}
           </ul>

@@ -62,7 +62,11 @@ export class SearchPage extends React.PureComponent {
       fromPointPrecision === "exact" || fromPointPrecision === "other";
     const isToPointPrecisionCorrect =
       toPointPrecision === "exact" || toPointPrecision === "other";
-    if (fromValue && fromValue !== prevState.fromValue) {
+    if (
+      fromValue &&
+      fromValue !== prevState.fromValue &&
+      this.state.fromValueChanging
+    ) {
       this.props.getSuggestions(fromValue);
     }
     if (toValue && toValue !== prevState.toValue) {

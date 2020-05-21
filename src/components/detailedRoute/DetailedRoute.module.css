@@ -1,0 +1,22 @@
+.station {
+    width: 12px;
+    height: 12px;
+    background-color: #c9cce8;
+    border-radius: 50%;
+    margin-left: 7px;
+}
+
+.routeName {
+    margin-left: 36px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 230px;
+    display: inline-block;
+    color: white;
+}
+
+.stepper {
+    width: 300px;
+    margin-top: 20px;
+}
