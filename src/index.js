@@ -8,6 +8,11 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import "./fonts/avantgardectt.ttf";
 
+document.body.style.height = window.innerHeight + "px";
+window.addEventListener("resize", () => {
+  document.body.style.height = window.innerHeight + "px";
+});
+
 window.ymaps.ready(() =>
   ReactDOM.render(
     <React.StrictMode>

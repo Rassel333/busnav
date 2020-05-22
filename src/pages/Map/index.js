@@ -139,7 +139,7 @@ class MapPage extends React.PureComponent {
     }, 1000);
     const label = startPoint ? "" : "Пересадка на маршрут ";
     this.setState({
-      transferStationRouteMessage: `${label}№${routeName}`,
+      transferStationRouteMessage: `${label}${routeName}`,
       departureTime,
     });
   };
@@ -147,7 +147,7 @@ class MapPage extends React.PureComponent {
   drawRoute = () => {
     const { route } = this.props;
     const routeFirstPoint = route[0].stations[0].coordinates;
-    const pedestrianStartRoute = this.createStartPedestrianStartRoute(
+    const pedestrianStartRoute = this.createPedestrianStartRoute(
       routeFirstPoint
     );
     this.routes.push(pedestrianStartRoute);
@@ -252,7 +252,7 @@ class MapPage extends React.PureComponent {
     this.stationIcons.push(stationIcon);
   };
 
-  createStartPedestrianStartRoute = (routeFirstPoint) => {
+  createPedestrianStartRoute = (routeFirstPoint) => {
     return new window.ymaps.multiRouter.MultiRoute(
       {
         referencePoints: [

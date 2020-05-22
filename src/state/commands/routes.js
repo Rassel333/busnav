@@ -34,6 +34,10 @@ export const selectRoute = (dispatch) => (route) => {
       coordinates: [point.coordinates[1], point.coordinates[0]],
       transferPoint,
       startPoint: index === 0 && routeData[index].stations.length === 0,
+      route_name:
+        point.route_type === "bus"
+          ? `Автобус №${point.route_name}`
+          : `Троллейбус №${point.route_name}`,
     });
     routeData[index].route_type = point.route_type;
   });
