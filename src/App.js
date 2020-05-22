@@ -9,10 +9,12 @@ import LocationCityIcon from "@material-ui/icons/LocationCity";
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route path="/" exact component={SearchPage} />
-        <Route path="/map" exact component={MapPage} />
-      </Switch>
+      <div className="mainContent">
+        <Switch>
+          <Route path="/" exact component={SearchPage} />
+          <Route path="/map" exact component={MapPage} />
+        </Switch>
+      </div>
       <div className="footerNav">
         <NavLink
           className="searchLink"

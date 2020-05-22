@@ -1,4 +1,4 @@
-.App {
+.mainContent {
   height: calc(100vh - 5rem);
 }
 
@@ -36,4 +36,10 @@
 .ymaps-2-1-76-controls__toolbar_left,
 .ymaps-2-1-76-controls__toolbar_right {
   display: none;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
 }

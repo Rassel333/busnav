@@ -11,7 +11,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width: 230px;
+    width: calc(100% - 20px);
     display: inline-block;
     color: white;
 }
@@ -19,4 +19,10 @@
 .stepper {
     width: 300px;
     margin-top: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .stepper {
+        width: 100vw;
+    }
 }

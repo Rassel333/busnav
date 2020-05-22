@@ -20,17 +20,22 @@ export const watchCurrentPosition = (dispatch) => async () => {
 
 export const getCurrentPosition = (dispatch) => async () => {
   dispatch(getFromCoordsByAddressPending());
-  try {
-    const { geoObjects } = await window.ymaps.geolocation.get({
-      provider: "browser",
-    });
-    const { position = [] } = geoObjects;
-    dispatch(
-      getFromCoordsByAddressSuccess(position, "exact", "Мое местоположение")
-    );
-  } catch (e) {
-    dispatch(getFromCoordsByAddressFail(e));
-  }
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const { coords } = position;
+      const { latitude, longitude } = coords;
+      dispatch(
+        getFromCoordsByAddressSuccess(
+          [latitude, longitude],
+          "exact",
+          "Мое местоположение"
+        )
+      );
+    },
+    (error) => {
+      dispatch(getFromCoordsByAddressFail(error));
+    }
+  );
 };
 
 export const getCoordsByAddress = async (address) => {
