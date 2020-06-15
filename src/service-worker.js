@@ -22,11 +22,9 @@ self.addEventListener("activate", (event) => {
 
 // 'install' вызывается, как только пользователь впервые открывает PWA
 self.addEventListener("install", function (event) {
-  // alert("INSTALL")
   if (doCache) {
     event.waitUntil(
       caches.open(CACHE_NAME).then(function (cache) {
-        // alert("CACHE")
         // Получаем данные из манифеста (они кэшируются)
         fetch("/manifest.json")
           .then((response) => {
@@ -50,7 +48,6 @@ self.addEventListener("install", function (event) {
 // Когда приложение запущено, сервис-воркер перехватывает запросы и отвечает на них данными из кэша, если они есть
 self.addEventListener("fetch", function (event) {
   if (doCache) {
-    // alert("REQUEST", event.request)
     event.respondWith(
       caches.match(event.request).then(function (response) {
         return response || fetch(event.request);

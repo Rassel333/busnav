@@ -20,7 +20,11 @@ const headersMap = {
 const getRouteTitle = (route) => {
   const routeNames = new Set();
   route.points.forEach((point) => {
-    routeNames.add(point.route_name);
+    const routeName =
+      point.route_type === "bus"
+        ? `Автобус №${point.route_name}`
+        : `Троллейбус №${point.route_name}`;
+    routeNames.add(routeName);
   });
   return Array.from(routeNames).join(", ");
 };
@@ -29,29 +33,31 @@ export const RoutesList = ({ routes, onSelect }) => {
   const routeTypes = Object.keys(routes).reverse();
   return (
     <StyledList subheader={<li />} style={{ padding: 0 }}>
-      {routeTypes.map((type) => (
-        <li key={`section-${type}`}>
-          <ul className={styles.subList}>
-            <ListSubheader style={{ color: "rgba(255, 255, 255, 0.42)" }}>
-              {headersMap[type]}
-            </ListSubheader>
-            {routes[type].map((route, index) => (
-              <ListItem
-                key={`item-${type}-${index}`}
-                button
-                onClick={() => onSelect(route)}
-              >
-                <div className={styles.listContentWrapper}>
-                  <div>{getRouteTitle(route)}</div>
-                  <div className={styles.routeTime}>
-                    {route.travel_time} мин.
+      {routeTypes.map((type) =>
+        routes[type].length ? (
+          <li key={`section-${type}`}>
+            <ul className={styles.subList}>
+              <ListSubheader style={{ color: "rgba(255, 255, 255, 0.42)" }}>
+                {headersMap[type]}
+              </ListSubheader>
+              {routes[type].map((route, index) => (
+                <ListItem
+                  key={`item-${type}-${index}`}
+                  button
+                  onClick={() => onSelect(route)}
+                >
+                  <div className={styles.listContentWrapper}>
+                    <div>{getRouteTitle(route)}</div>
+                    <div className={styles.routeTime}>
+                      {route.travel_time} мин.
+                    </div>
                   </div>
-                </div>
-              </ListItem>
-            ))}
-          </ul>
-        </li>
-      ))}
+                </ListItem>
+              ))}
+            </ul>
+          </li>
+        ) : null
+      )}
     </StyledList>
   );
 };

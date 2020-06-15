@@ -137,8 +137,8 @@
             53.640016873
           ],
           "travel_time": 2,
-          "departure_time": 1589246261955,
-          "arrival_time": 1589246261955
+          "departure_time": 1590366984190,
+          "arrival_time": 1590366984190
         },
         {
           "station_name": "Поликлиника №7",
@@ -259,8 +259,8 @@
             53.643113406
           ],
           "travel_time": 2,
-          "departure_time": 1588359300000,
-          "arrival_time": 1588359300000
+          "departure_time": 1590366984190,
+          "arrival_time": 1590366984190
         },
         {
           "station_name": "Улица Кабяка",
@@ -325,8 +325,8 @@
             53.643219184
           ],
           "travel_time": 2,
-          "departure_time": 1588359420000,
-          "arrival_time": 1588359420000
+          "departure_time": 1590366984190,
+          "arrival_time": 1590366984190
         }
       ],
       "travel_time": 6
@@ -470,8 +470,8 @@
             53.640016873
           ],
           "travel_time": 2,
-          "departure_time": 1588359180000,
-          "arrival_time": 1588359180000
+          "departure_time": 1590366984190,
+          "arrival_time": 1590366984190
         },
         {
           "station_name": "Поликлиника №7",
@@ -592,8 +592,8 @@
             53.643113406
           ],
           "travel_time": 2,
-          "departure_time": 1588359300000,
-          "arrival_time": 1588359300000
+          "departure_time": 1590366984190,
+          "arrival_time": 1590366984190
         },
         {
           "station_name": "Улица Кабяка",
@@ -658,8 +658,8 @@
             53.643219184
           ],
           "travel_time": 2,
-          "departure_time": 1588359420000,
-          "arrival_time": 1588359420000
+          "departure_time": 1590366984190,
+          "arrival_time": 1590366984190
         }
       ],
       "travel_time": 6

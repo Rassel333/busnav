@@ -23,7 +23,7 @@ function App() {
           activeStyle={{ backgroundColor: "#232538" }}
         >
           <LocationSearchingIcon />
-          <span>SEARCH</span>
+          <span>ПОИСК</span>
         </NavLink>
         <NavLink
           className="mapLink"
@@ -31,7 +31,7 @@ function App() {
           activeStyle={{ backgroundColor: "#232538" }}
         >
           <LocationCityIcon />
-          <span>MAP</span>
+          <span>КАРТА</span>
         </NavLink>
       </div>
     </div>

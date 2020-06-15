@@ -32,6 +32,7 @@ class MapPage extends React.PureComponent {
       departureTime: undefined,
       timeToDeparture: undefined,
       routeDetailsInfoOpened: false,
+      isTransportDeparted: true,
     };
   }
   componentDidMount() {
@@ -133,13 +134,18 @@ class MapPage extends React.PureComponent {
     this.intervalId = setInterval(() => {
       const now = moment.utc().valueOf();
       const msLeft = departureTime - now;
+      const label = startPoint ? "" : "Пересадка на маршрут ";
+      const message =
+        msLeft > 0
+          ? `${label}${routeName}`
+          : "Ваш транспорт ушел. Вернитесь на предыдущую страницу для выбора маршрута.";
       this.setState({
         timeToDeparture: msLeft,
+        isTransportDeparted: msLeft <= 0,
+        transferStationRouteMessage: message,
       });
     }, 1000);
-    const label = startPoint ? "" : "Пересадка на маршрут ";
     this.setState({
-      transferStationRouteMessage: `${label}${routeName}`,
       departureTime,
     });
   };
@@ -280,8 +286,8 @@ class MapPage extends React.PureComponent {
       {
         referencePoints: [
           routeLastPoint,
-          // this.props.toPoint
-          [53.646, 23.8489],
+          this.props.toPoint,
+          // [53.646, 23.8489],
         ],
         params: {
           routingMode: "pedestrian",
@@ -314,6 +320,7 @@ class MapPage extends React.PureComponent {
       timeToDeparture,
       routeDetailsInfoOpened,
       transferStationRouteMessage,
+      isTransportDeparted,
     } = this.state;
     const time = moment(departureTime).format("HH:mm");
     const timeLeft = moment.duration(timeToDeparture);
@@ -334,10 +341,11 @@ class MapPage extends React.PureComponent {
         <div id="map" style={{ height: "100%", width: "100%" }} />
         {transferStationRouteMessage && (
           <div className={styles.transferInfo}>
-            <div>
-              {transferStationRouteMessage} ({time})
+            <div className={styles.transferStationRouteMessage}>
+              {transferStationRouteMessage}{" "}
+              {!isTransportDeparted ? `(${time})` : ""}
             </div>
-            {!!timeToDeparture && (
+            {!!timeToDeparture && !isTransportDeparted && (
               <div>
                 До отправления {hoursLeft}ч. {minutesLeft} мин.
               </div>

@@ -33,7 +33,7 @@ export class SearchPage extends React.PureComponent {
   };
 
   componentDidMount() {
-    const { fromAddress, toAddress, routes } = this.props;
+    const { fromAddress, toAddress, routes, fromPoint, toPoint } = this.props;
     if (
       fromAddress &&
       toAddress &&
@@ -43,6 +43,9 @@ export class SearchPage extends React.PureComponent {
         fromValue: fromAddress,
         toValue: toAddress,
       });
+    }
+    if (fromPoint && toPoint) {
+      this.props.getRoutes(fromPoint, toPoint);
     }
   }
 
@@ -107,7 +110,7 @@ export class SearchPage extends React.PureComponent {
       (!isEqual(fromPoint, prevProps.fromPoint) ||
         !isEqual(toPoint, prevProps.toPoint))
     ) {
-      this.props.getRoutes();
+      this.props.getRoutes(fromPoint, toPoint);
     }
 
     if (
@@ -169,23 +172,6 @@ export class SearchPage extends React.PureComponent {
     });
   };
 
-  renderSuggestionsContent = () => {
-    const {
-      state: { fromValue, toValue },
-      props: { suggestions },
-    } = this;
-    return (
-      <div className={styles.suggestionsWrapper}>
-        <Suggestions
-          onSelect={this.selectAddress}
-          suggestions={suggestions}
-          fromValue={fromValue}
-          toValue={toValue}
-        />
-      </div>
-    );
-  };
-
   selectRoute = (route) => {
     this.props.selectRoute(route);
     this.props.history.push("/map");
@@ -219,7 +205,7 @@ export class SearchPage extends React.PureComponent {
         toValueChanging,
         fromValueChanging,
       },
-      props: { fromPointPrecision, toPointPrecision, loading },
+      props: { fromPointPrecision, toPointPrecision, loading, suggestions },
     } = this;
 
     return (
@@ -255,9 +241,18 @@ export class SearchPage extends React.PureComponent {
                 {fromValueChanging ||
                 (selectedFromValue && fromPointPrecision === "street") ||
                 toValueChanging ||
-                (selectedToValue && toPointPrecision === "street")
-                  ? this.renderSuggestionsContent()
-                  : this.renderPageContent()}
+                (selectedToValue && toPointPrecision === "street") ? (
+                  <div className={styles.suggestionsWrapper}>
+                    <Suggestions
+                      onSelect={this.selectAddress}
+                      suggestions={suggestions}
+                      fromValue={fromValue}
+                      toValue={toValue}
+                    />
+                  </div>
+                ) : (
+                  this.renderPageContent()
+                )}
               </>
             ) : (
               <Progress />
